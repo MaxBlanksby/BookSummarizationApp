@@ -7,7 +7,7 @@ import PyPDF2
 
 
 
-#openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 def open_pdf(pdf_path):
@@ -40,9 +40,6 @@ def generate_test_pdf(pdf_path, size_of_text_piece):
     pdf.output(pdf_path)
           
         
-    
-
-
 
 #generate_test_pdf("sample.pdf",10000)
 
@@ -53,6 +50,8 @@ newtext = parse_pdf("Pdfs/sample.pdf", 1000)
 for idx, chunk in enumerate(newtext):
     with open(f"textFiles/chunk_{idx+1}.txt", "w", encoding="utf-8") as f:
         f.write(chunk)
+
+
 
 
 
