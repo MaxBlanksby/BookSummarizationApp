@@ -22,13 +22,40 @@ def open_pdf(pdf_path):
 def create_text_file(text_file_path):
     return open("output.txt", "w")
 
-def parse_pdf(pdf_path, size_of_text_piece):
+def chunk_by_size(pdf_path, size_of_text_piece, overlap):
     text = open_pdf(pdf_path)
     text_chunks = []
-    for i in range(0, len(text), size_of_text_piece):
+    i = 0
+    while i < len(text):
         text_piece = text[i:i+size_of_text_piece]
         text_chunks.append(text_piece)
+        if i + size_of_text_piece >= len(text):
+            break
+        i += size_of_text_piece - overlap
     return text_chunks
+
+
+def chunk_by_chapter(pdf_path, overlap):
+    text = open_pdf(pdf_path)
+    chapters = text.split("Chapter")
+
+    chapter_chunks = []
+    for i, chapter in enumerate(chapters):
+        chapter = chapter.strip()
+        if not chapter:
+            continue
+        if i != 0:
+            chapter = "Chapter" + chapter
+        chapter_chunks.append(chapter)
+
+    overlapped_chunks = []
+    for i, chunk in enumerate(chapter_chunks):
+        if overlap > 0 and i > 0:
+            prev_chunk = chapter_chunks[i-1]
+            overlap_text = prev_chunk[-overlap:] if len(prev_chunk) >= overlap else prev_chunk
+            chunk = overlap_text + chunk
+        overlapped_chunks.append(chunk)
+    return overlapped_chunks
 
 
 def generate_test_pdf(pdf_path, size_of_text_piece):
@@ -45,7 +72,7 @@ def generate_test_pdf(pdf_path, size_of_text_piece):
 
 
 os.makedirs("textFiles", exist_ok=True)
-newtext = parse_pdf("Pdfs/sample.pdf", 1000)
+newtext = chunk_by_size("Pdfs/sample.pdf", 1000, 100)
 
 for idx, chunk in enumerate(newtext):
     with open(f"textFiles/chunk_{idx+1}.txt", "w", encoding="utf-8") as f:
