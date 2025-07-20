@@ -21,6 +21,14 @@ MAX_TOK_PER_MIN = 40_000
 
 client = OpenAI()
 
+
+def open_pdf(pdf_path: str) -> str:
+    reader = PdfReader(pdf_path)
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text() or ""
+    return text
+
 # ─── STEP 1: Chunk PDF into token windows ────────────────────────────────
 def chunk_by_tokens(pdf_path: str, chunk_size: int = 500, overlap: int = 100) -> list[str]:
     reader = PdfReader(pdf_path)
