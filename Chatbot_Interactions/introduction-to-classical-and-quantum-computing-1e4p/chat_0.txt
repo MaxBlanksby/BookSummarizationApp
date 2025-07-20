@@ -1,0 +1,9 @@
+You: What is this book about
+Bot: The book "Introduction to Classical and Quantum Computing" by Thomas G. Wong serves as an introductory textbook aimed at newcomers interested in quantum computing, particularly those considering it as a potential career path. It is designed for individuals who may not have advanced mathematical backgrounds or programming experience, with the only prerequisite being knowledge of trigonometry or pre-calculus. 
+
+The author emphasizes that the book is not just a conceptual overview; it aims to equip readers with essential mathematical and programming skills necessary for understanding quantum computing more deeply. This makes it suitable for advanced high school students and beginning university students. For those with a more advanced background, Wong suggests that they may find the material too elementary and recommends a more rigorous text, "Quantum Computation and Quantum Information" by Michael Nielsen and Isaac Chuang.
+
+The content of the book includes foundational topics in classical information and computation, as well as an introduction to quantum bits (qubits), superposition, quantum gates, and other fundamental concepts in quantum computing. The author expresses a desire for the textbook to inspire readers to pursue further study in quantum computing and possibly choose it as a career, fostering a sense of community among learners and professionals in the field. 
+
+Overall, the book aims to demystify quantum computing and make it accessible to a broader audience, encouraging engagement and exploration in this rapidly evolving area of technology.
+
