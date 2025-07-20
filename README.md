@@ -26,6 +26,7 @@ pip install -r requirements.txt
 Clone this repo:
 
 git [clone https://github.com/yourusername/BookSummerizationApp.git](https://github.com/MaxBlanksby/BookSummerizationApp)
+
 cd BookSummerizationApp
 
 Create a .env with your OpenAI key (as above).
