@@ -211,7 +211,11 @@ def main():
     print("[3/4] Building FAISS index…")
     index = build_faiss_index(embs)
 
-    # ── INTERACTIVE CHAT ───────────────────────────────────────────────────────
+    # ── INTERACTIVE CHAT WITH MEMORY ─────────────────────────────────────────
+    # initialize conversation history
+    history = [
+        {"role": "system", "content": "You are a helpful assistant who has read the PDF."}
+    ]
     print("[4/4] Ready! Ask questions (type 'exit' to quit).")
     transcript_file = get_next_transcript_path(pdf_name)
     transcript: list[tuple[str,str]] = []
@@ -220,9 +224,28 @@ def main():
         q = input("You: ").strip()
         if q.lower() in ("exit", "quit"):
             break
+
+        # retrieve relevant chunks
         ctx = retrieve_chunks(q, index, chunks, top_k=5)
-        ans = answer_question(q, ctx)
+
+        # add retrieved excerpts as a system message
+        excerpts = "\n\n".join(f"Excerpt {i+1}:\n{txt}" for i, txt in enumerate(ctx))
+        history.append({"role": "system", "content": excerpts})
+
+        # add the user's question
+        history.append({"role": "user", "content": q})
+
+        # call the chat model with full history
+        resp = client.chat.completions.create(
+            model=CHAT_MODEL,
+            messages=history,
+            temperature=0.2,
+        )
+        ans = resp.choices[0].message.content.strip()
+
+        # output and record
         print("Bot:", ans, "\n")
+        history.append({"role": "assistant", "content": ans})
         transcript.append((q, ans))
 
     # ── SAVE TRANSCRIPT ────────────────────────────────────────────────────────
