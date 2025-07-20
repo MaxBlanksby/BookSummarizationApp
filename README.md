@@ -47,19 +47,3 @@ Chat! Type questions; exit to quit
 
 Find transcripts in Chatbot_Interactions/<pdf_name>/
 
-🗂️ Folder Structure
-
-BookSummerizationApp/
-├── pdf_chatbot.py
-├── requirements.txt
-├── .env
-├── Data/
-│   └── <pdf_name>_cache/
-│       ├── chunks.pkl
-│       └── embeddings.npy
-├── Chatbot_Interactions/
-│   └── <pdf_name>/
-│       ├── chat_0.txt
-│       └── chat_1.txt
-└── Pdfs/
-    └── example.pdf
