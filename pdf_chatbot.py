@@ -1,23 +1,23 @@
-import os
-import time
-import shutil
 import argparse
+import os
 import pickle
-import numpy as np
-import faiss
-import tiktoken
+import shutil
+import time
 from pathlib import Path
-from openai import OpenAI
-from tqdm import tqdm
-from PyPDF2 import PdfReader
+import numpy as np
+import faiss                          
+import tiktoken
 from dotenv import load_dotenv
+from openai import OpenAI
+from PyPDF2 import PdfReader
+
 load_dotenv()
 
 # ─── CONFIG ─────────────────────────────────────────────────────────────
 EMBED_MODEL = "text-embedding-ada-002"
 CHAT_MODEL  = "gpt-4o-mini"
 TOKENIZER   = "cl100k_base"
-MAX_TOK_PER_MIN = 40_000
+MAX_TOK_PER_MIN = 35_000
 
 client = OpenAI()
 
